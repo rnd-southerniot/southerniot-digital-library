@@ -1,55 +1,50 @@
 {
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://southerniot.local/dpl/schemas/alerting.schema.json",
   "type": "object",
-  "required": [
-    "channels",
-    "routing"
-  ],
+  "additionalProperties": false,
+  "required": ["channels", "routing"],
   "properties": {
     "channels": {
       "type": "object",
-      "required": [
-        "crm_comments",
-        "email",
-        "mattermost"
-      ],
+      "additionalProperties": false,
+      "required": ["crm_comments", "email", "mattermost"],
       "properties": {
-        "crm_comments": {
-          "type": "boolean"
-        },
+        "crm_comments": { "type": "boolean" },
         "email": {
-          "type": "object"
+          "type": "object",
+          "additionalProperties": false,
+          "required": ["enabled", "to_roles"],
+          "properties": {
+            "enabled": { "type": "boolean" },
+            "to_roles": {
+              "type": "array",
+              "minItems": 1,
+              "items": { "type": "string" }
+            },
+            "subject_prefix": { "type": "string" }
+          }
         },
         "mattermost": {
-          "type": "object"
+          "type": "object",
+          "additionalProperties": false,
+          "required": ["enabled", "channel"],
+          "properties": {
+            "enabled": { "type": "boolean" },
+            "server": { "type": "string" },
+            "channel": { "type": "string" }
+          }
         }
       }
     },
     "routing": {
       "type": "object",
-      "required": [
-        "blocker",
-        "warning",
-        "info"
-      ],
+      "additionalProperties": false,
+      "required": ["blocker", "warning", "info"],
       "properties": {
-        "blocker": {
-          "type": "array",
-          "items": {
-            "type": "string"
-          }
-        },
-        "warning": {
-          "type": "array",
-          "items": {
-            "type": "string"
-          }
-        },
-        "info": {
-          "type": "array",
-          "items": {
-            "type": "string"
-          }
-        }
+        "blocker": { "type": "array", "minItems": 1, "items": { "type": "string" } },
+        "warning": { "type": "array", "minItems": 1, "items": { "type": "string" } },
+        "info": { "type": "array", "minItems": 1, "items": { "type": "string" } }
       }
     }
   }

@@ -1,60 +1,41 @@
 {
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://southerniot.local/dpl/schemas/checklist.schema.json",
   "type": "object",
-  "required": [
-    "checklist_id",
-    "title",
-    "fields"
-  ],
+  "additionalProperties": false,
+  "required": ["checklist_id", "title", "fields"],
   "properties": {
-    "checklist_id": {
-      "type": "string"
-    },
-    "title": {
-      "type": "string"
-    },
+    "checklist_id": { "type": "string" },
+    "title": { "type": "string" },
     "fields": {
       "type": "array",
+      "minItems": 1,
       "items": {
         "type": "object",
-        "required": [
-          "id",
-          "label",
-          "type",
-          "required"
-        ],
+        "additionalProperties": false,
+        "required": ["id", "label", "type", "required"],
         "properties": {
-          "id": {
-            "type": "string"
-          },
-          "label": {
-            "type": "string"
-          },
+          "id": { "type": "string" },
+          "label": { "type": "string" },
           "type": {
             "type": "string",
-            "enum": [
-              "boolean",
-              "integer",
-              "string",
-              "enum",
-              "photo"
-            ]
+            "enum": ["boolean", "integer", "string", "enum", "photo"]
           },
-          "required": {
-            "type": "boolean"
-          },
+          "required": { "type": "boolean" },
           "enum": {
             "type": "array",
-            "items": {
-              "type": "string"
-            }
+            "minItems": 1,
+            "items": { "type": "string" }
           },
-          "min": {
-            "type": "number"
-          },
-          "max": {
-            "type": "number"
+          "min": { "type": "number" },
+          "max": { "type": "number" }
+        },
+        "allOf": [
+          {
+            "if": { "properties": { "type": { "const": "enum" } } },
+            "then": { "required": ["enum"] }
           }
-        }
+        ]
       }
     }
   }

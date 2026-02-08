@@ -1,5 +1,8 @@
 {
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://southerniot.local/dpl/schemas/statepack.schema.json",
   "type": "object",
+  "additionalProperties": false,
   "required": [
     "state",
     "objective",
@@ -11,40 +14,64 @@
   ],
   "properties": {
     "state": {
-      "type": "string"
+      "type": "string",
+      "enum": [
+        "initialized",
+        "site_survey",
+        "hardware_preparation",
+        "firmware_generate",
+        "lab_test",
+        "ready_for_installation",
+        "on_site_installation",
+        "testing",
+        "live",
+        "maintenance"
+      ]
     },
-    "objective": {
-      "type": "string"
-    },
+    "objective": { "type": "string" },
     "roles": {
       "type": "array",
+      "minItems": 1,
       "items": {
-        "type": "string"
+        "type": "string",
+        "enum": [
+          "CTO",
+          "RND_LEAD",
+          "RND_ENGINEER",
+          "FIELD_ENGINEER",
+          "PROJECT_LEAD",
+          "SUPPORT",
+          "OPS"
+        ]
       }
     },
     "steps": {
       "type": "array",
-      "items": {
-        "type": "string"
-      }
+      "minItems": 1,
+      "items": { "type": "string" }
     },
     "required_inputs": {
       "type": "array",
-      "items": {
-        "type": "string"
-      }
+      "minItems": 1,
+      "items": { "type": "string" }
     },
     "required_evidence": {
-      "type": "object"
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "photos_min": { "type": "integer", "minimum": 0 },
+        "photos_max": { "type": "integer", "minimum": 0 },
+        "required_photo_tags": {
+          "type": "array",
+          "items": { "type": "string" }
+        }
+      }
     },
     "outputs": {
       "type": "array",
-      "items": {
-        "type": "string"
-      }
+      "minItems": 1,
+      "items": { "type": "string" }
     },
-    "notes": {
-      "type": "string"
-    }
+    "notes": { "type": "string" }
   }
 }

@@ -1,31 +1,35 @@
 {
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://southerniot.local/dpl/schemas/crm-event.schema.json",
   "type": "object",
-  "required": [
-    "project_id",
-    "workstream",
-    "state",
-    "product_id",
-    "variant",
-    "payload"
-  ],
+  "additionalProperties": false,
+  "required": ["project_id", "workstream", "state", "product_id", "variant", "payload"],
   "properties": {
-    "project_id": {
-      "type": "string"
+    "event_id": { "type": "string" },
+    "event_type": {
+      "type": "string",
+      "enum": ["state_update", "checklist_submission", "validation_result", "alert"]
     },
-    "workstream": {
-      "type": "string"
-    },
+    "created_at": { "type": "string", "format": "date-time" },
+    "project_id": { "type": "string" },
+    "workstream": { "type": "string", "enum": ["gateway", "edge_node"] },
     "state": {
-      "type": "string"
+      "type": "string",
+      "enum": [
+        "initialized",
+        "site_survey",
+        "hardware_preparation",
+        "firmware_generate",
+        "lab_test",
+        "ready_for_installation",
+        "on_site_installation",
+        "testing",
+        "live",
+        "maintenance"
+      ]
     },
-    "product_id": {
-      "type": "string"
-    },
-    "variant": {
-      "type": "string"
-    },
-    "payload": {
-      "type": "object"
-    }
+    "product_id": { "type": "string" },
+    "variant": { "type": "string" },
+    "payload": { "type": "object" }
   }
 }

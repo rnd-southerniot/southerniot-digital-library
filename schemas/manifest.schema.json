@@ -1,5 +1,8 @@
 {
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://southerniot.local/dpl/schemas/manifest.schema.json",
   "type": "object",
+  "additionalProperties": false,
   "required": [
     "product_id",
     "name",
@@ -10,89 +13,118 @@
     "alerting"
   ],
   "properties": {
-    "product_id": {
-      "type": "string"
-    },
-    "name": {
-      "type": "string"
-    },
+    "product_id": { "type": "string" },
+    "name": { "type": "string" },
     "workstream": {
       "type": "string",
-      "enum": [
-        "gateway",
-        "edge_node",
-        "integration"
-      ]
+      "enum": ["gateway", "edge_node", "integration"]
     },
     "defaults": {
       "type": "object",
-      "required": [
-        "region"
-      ],
+      "additionalProperties": false,
+      "required": ["region"],
       "properties": {
-        "region": {
-          "type": "string"
-        },
+        "region": { "type": "string", "enum": ["AS923-1"] },
         "gateway_mode": {
-          "type": "string"
+          "type": "string",
+          "enum": ["basic_station", "udp_packet_forwarder"]
         },
         "modbus": {
-          "type": "object"
+          "type": "object",
+          "additionalProperties": false,
+          "required": ["baudrate", "parity", "databits", "stopbits"],
+          "properties": {
+            "baudrate": { "type": "integer", "enum": [9600] },
+            "parity": { "type": "string", "enum": ["N"] },
+            "databits": { "type": "integer", "enum": [8] },
+            "stopbits": { "type": "integer", "enum": [1] },
+            "slave_id_default": { "type": "integer", "minimum": 1, "maximum": 247 }
+          }
         }
       }
     },
     "variants": {
       "type": "array",
-      "items": {
-        "type": "string"
-      }
+      "minItems": 1,
+      "items": { "type": "string" }
     },
     "dependencies": {
       "type": "array",
-      "items": {
-        "type": "string"
-      }
+      "items": { "type": "string" }
     },
     "state_requirements": {
       "type": "object",
+      "propertyNames": {
+        "enum": [
+          "initialized",
+          "site_survey",
+          "hardware_preparation",
+          "firmware_generate",
+          "lab_test",
+          "ready_for_installation",
+          "on_site_installation",
+          "testing",
+          "live",
+          "maintenance"
+        ]
+      },
       "additionalProperties": {
         "type": "object",
+        "additionalProperties": false,
         "properties": {
           "required_docs": {
             "type": "array",
-            "items": {
-              "type": "string"
-            }
+            "minItems": 1,
+            "items": { "type": "string" }
           },
-          "required_checklist": {
-            "type": "string"
-          },
+          "required_checklist": { "type": "string" },
           "required_evidence": {
-            "type": "object"
+            "type": "object",
+            "additionalProperties": false,
+            "properties": {
+              "photos_min": { "type": "integer", "minimum": 0 },
+              "photos_max": { "type": "integer", "minimum": 0 },
+              "required_photo_tags": {
+                "type": "array",
+                "items": { "type": "string" }
+              }
+            }
           },
           "validations": {
             "type": "array",
-            "items": {
-              "type": "string"
-            }
+            "items": { "type": "string" }
           },
           "approvals": {
             "type": "array",
-            "items": {
-              "type": "string"
-            }
+            "items": { "type": "string" }
           },
           "outputs": {
             "type": "array",
-            "items": {
-              "type": "string"
-            }
+            "items": { "type": "string" }
           }
         }
       }
     },
-    "alerting": {
-      "type": "object"
+    "alerting": { "$ref": "alerting.schema.json" }
+  },
+  "allOf": [
+    {
+      "if": {
+        "properties": { "workstream": { "const": "gateway" } },
+        "required": ["workstream"]
+      },
+      "then": {
+        "properties": { "defaults": { "required": ["gateway_mode"] } }
+      }
+    },
+    {
+      "if": {
+        "properties": { "workstream": { "const": "edge_node" } },
+        "required": ["workstream"]
+      },
+      "then": {
+        "properties": { "defaults": { "required": ["modbus"] } }
+      }
     }
-  }
+  ]
 }

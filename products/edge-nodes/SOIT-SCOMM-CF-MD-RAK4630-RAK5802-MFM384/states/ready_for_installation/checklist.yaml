@@ -1,0 +1,15 @@
+checklist_id: MFM384_READY_FOR_INSTALL_V1
+title: MFM384 Node Ready for Installation
+fields:
+  - id: lab_test_attached
+    label: Lab test log attached in CRM
+    type: boolean
+    required: true
+  - id: wiring_accessories_packed
+    label: Wiring accessories packed (ferrules, labels, glands)
+    type: boolean
+    required: true
+  - id: install_window_confirmed
+    label: Install window confirmed with site contact
+    type: boolean
+    required: true

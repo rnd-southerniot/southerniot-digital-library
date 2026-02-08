@@ -1,0 +1,17 @@
+checklist_id: MFM384_HARDWARE_PREP_V1
+title: MFM384 Node Hardware Preparation
+fields:
+  - id: enclosure_labeled
+    label: Enclosure labeled with project/site + meter
+    type: boolean
+    required: true
+  - id: rs485_cable_prepared
+    label: RS-485 cable prepared and labeled
+    type: boolean
+    required: true
+  - id: slave_id_planned
+    label: Modbus slave id plan recorded
+    type: integer
+    min: 1
+    max: 247
+    required: true

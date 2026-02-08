@@ -1,4 +1,4 @@
-variant: AS9231_RS485_9600N81
+variant_id: AS9231_RS485_9600N81
 region: AS923-1
 modbus:
   baudrate: 9600

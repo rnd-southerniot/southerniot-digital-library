@@ -1,0 +1,11 @@
+checklist_id: MFM384_LIVE_V1
+title: MFM384 Node Live (Handover)
+fields:
+  - id: monitoring_owner_set
+    label: Monitoring ownership set to OPS
+    type: boolean
+    required: true
+  - id: alerting_verified
+    label: Alert routing verified (CRM/email/Mattermost)
+    type: boolean
+    required: true

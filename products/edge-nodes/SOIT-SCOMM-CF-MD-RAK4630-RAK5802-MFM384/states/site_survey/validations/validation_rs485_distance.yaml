@@ -3,5 +3,4 @@ severity: warning
 when_state: site_survey
 rules:
 - rs485_distance_m <= 1200
-message: RS-485 distance exceeds recommended maximum. Consider repeater or topology
-  changes.
+message: RS-485 distance exceeds recommended maximum. Consider repeater or topology changes.

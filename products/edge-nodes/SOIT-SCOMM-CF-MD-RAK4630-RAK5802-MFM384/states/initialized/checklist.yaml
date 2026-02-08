@@ -1,0 +1,16 @@
+checklist_id: MFM384_INITIALIZED_V1
+title: MFM384 Node Initialized (CRM + Variant)
+fields:
+  - id: crm_workstream_created
+    label: CRM workstream "edge_node" created/confirmed
+    type: boolean
+    required: true
+  - id: variant_id
+    label: Selected variant
+    type: enum
+    enum: [AS9231_RS485_9600N81]
+    required: true
+  - id: meter_identifier
+    label: Meter identifier/name in CRM
+    type: string
+    required: true

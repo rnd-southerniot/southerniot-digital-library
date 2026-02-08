@@ -37,7 +37,7 @@ alerting:
 state_requirements:
   site_survey:
     required_docs:
-    - states/site_survey/sop.md
+    - states/site_survey/docs/sop.md
     - modbus/meter-setup.md
     required_checklist: states/site_survey/checklist.yaml
     required_evidence:
@@ -49,35 +49,50 @@ state_requirements:
       - rs485_route
       - power_source
     validations:
-    - states/site_survey/validation_meter_model.yaml
-    - states/site_survey/validation_rs485_distance.yaml
+    - states/site_survey/validations/validation_meter_model.yaml
+    - states/site_survey/validations/validation_rs485_distance.yaml
     outputs:
     - site_survey_report
   hardware_preparation:
     required_docs:
-    - states/hardware_preparation/sop.md
+    - states/hardware_preparation/docs/sop.md
+    required_checklist: states/hardware_preparation/checklist.yaml
+    validations:
+    - states/hardware_preparation/validations/validation_hardware_prep.yaml
     outputs:
     - prepared_hardware_list
   firmware_generate:
     required_docs:
-    - states/firmware_generate/sop.md
+    - states/firmware_generate/docs/sop.md
+    required_checklist: states/firmware_generate/checklist.yaml
     approvals:
     - RND_LEAD
+    validations:
+    - states/firmware_generate/validations/validation_firmware_approval.yaml
     outputs:
     - firmware_bundle_ref
     - device_profile_ref
   lab_test:
     required_docs:
-    - states/lab_test/sop.md
+    - states/lab_test/docs/sop.md
+    required_checklist: states/lab_test/checklist.yaml
     validations:
-    - states/lab_test/validation_modbus_poll.yaml
-    - states/lab_test/validation_payload_codec.yaml
+    - states/lab_test/validations/validation_modbus_poll.yaml
+    - states/lab_test/validations/validation_payload_codec.yaml
     outputs:
     - lab_test_log
     - test_vectors_result
+  ready_for_installation:
+    required_docs:
+    - states/ready_for_installation/docs/sop.md
+    required_checklist: states/ready_for_installation/checklist.yaml
+    validations:
+    - states/ready_for_installation/validations/validation_ready_for_install.yaml
+    outputs:
+    - staged_for_installation
   on_site_installation:
     required_docs:
-    - states/on_site_installation/sop.md
+    - states/on_site_installation/docs/sop.md
     required_checklist: states/on_site_installation/checklist.yaml
     required_evidence:
       photos_min: 4
@@ -88,12 +103,12 @@ state_requirements:
       - enclosure
       - meter_terminals
     validations:
-    - states/on_site_installation/validation_ab_polarity.yaml
+    - states/on_site_installation/validations/validation_ab_polarity.yaml
     outputs:
     - installation_report
   testing:
     required_docs:
-    - states/testing/sop.md
+    - states/testing/docs/sop.md
     required_checklist: states/testing/checklist.yaml
     required_evidence:
       photos_min: 4
@@ -104,12 +119,23 @@ state_requirements:
       - meter_reading_screen
       - gateway_rssi_snr
     validations:
-    - states/testing/validation_ranges.yaml
-    - states/testing/validation_uplink.yaml
+    - states/testing/validations/validation_ranges.yaml
+    - states/testing/validations/validation_uplink.yaml
     outputs:
     - commissioning_report
+  live:
+    required_docs:
+    - states/live/docs/sop.md
+    required_checklist: states/live/checklist.yaml
+    validations:
+    - states/live/validations/validation_alerting.yaml
+    outputs:
+    - go_live_record
   maintenance:
     required_docs:
-    - states/maintenance/sop.md
+    - states/maintenance/docs/sop.md
+    required_checklist: states/maintenance/checklist.yaml
+    validations:
+    - states/maintenance/validations/validation_maintenance.yaml
     outputs:
     - maintenance_log

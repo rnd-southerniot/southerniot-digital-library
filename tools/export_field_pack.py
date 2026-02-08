@@ -76,14 +76,23 @@ def _select_artifacts(product_ids: list[str]) -> dict[str, Any]:
     return {"version": data.get("version", 1), "artifacts": selected}
 
 
-def _write_readme(dst_root: Path, project_id: str, items: list[tuple[str, str]], states: list[str]) -> None:
+def _write_readme(
+    dst_root: Path,
+    project_id: str,
+    items: list[tuple[str, str]],
+    states: list[str],
+    role_filter: set[str] | None,
+) -> None:
     lines = [
         f"# Field Pack — {project_id}",
         "",
         "## Contents",
         *[f"- `{pid}` variant `{vid}`" for pid, vid in items],
         "",
-        "## Included States",
+        "## Role Filter",
+        f"- `{','.join(sorted(role_filter))}`" if role_filter else "- (none)",
+        "",
+        "## Requested States",
         *[f"- `{s}`" for s in states],
         "",
         "## How to Use (Offline)",
@@ -91,6 +100,8 @@ def _write_readme(dst_root: Path, project_id: str, items: list[tuple[str, str]],
         "2. Complete `checklist.yaml` for the state (capture required photo evidence).",
         "3. Run validations listed under `products/.../states/<state>/validations/`.",
         "4. Attach outputs back to the CRM comment thread when online.",
+        "",
+        "Note: when a role filter is set, states whose `statepack.yaml` does not include the role are omitted.",
         "",
         "## Artifact References",
         "- Nextcloud artifacts are included as references only (no downloads).",
@@ -111,6 +122,11 @@ def main() -> int:
     ap.add_argument("--project-id", required=True)
     ap.add_argument("--out", required=True, help="Output folder (zip written here)")
     ap.add_argument("--states", help="Comma-separated list of states (default: all)")
+    ap.add_argument(
+        "--roles",
+        help="Comma-separated role IDs to filter states (e.g. FIELD_ENGINEER,SUPPORT). "
+        "When set, only states whose statepack.roles intersects are included.",
+    )
 
     ap.add_argument("--product-id", help="Single product_id")
     ap.add_argument("--variant", help="Single variant_id")
@@ -151,6 +167,10 @@ def main() -> int:
             "maintenance",
         ]
 
+    role_filter = None
+    if args.roles:
+        role_filter = {r.strip() for r in args.roles.split(",") if r.strip()}
+
     out_dir = Path(args.out)
     out_dir.mkdir(parents=True, exist_ok=True)
 
@@ -190,6 +210,16 @@ def main() -> int:
                 # State material
                 for st in states:
                     st_dir = product_dir / "states" / st
+                    if role_filter:
+                        sp = st_dir / "statepack.yaml"
+                        try:
+                            sp_data = _load_yaml(sp) or {}
+                            roles = sp_data.get("roles") if isinstance(sp_data, dict) else None
+                            roles_set = {r for r in roles if isinstance(r, str)} if isinstance(roles, list) else set()
+                        except Exception:
+                            roles_set = set()
+                        if not (roles_set & role_filter):
+                            continue
                     for fp in [
                         st_dir / "statepack.yaml",
                         st_dir / "checklist.yaml",
@@ -202,7 +232,7 @@ def main() -> int:
                             for fp in sorted([x for x in p.rglob("*") if x.is_file()], key=_posix):
                                 _copy_file(fp, dst_root)
 
-            _write_readme(dst_root, args.project_id, bundle, states)
+            _write_readme(dst_root, args.project_id, bundle, states, role_filter)
 
             zip_path = out_dir / (zip_name if label == "combined" else f"field-pack_{args.project_id}_{label}_{timestamp}.zip")
             _zip_dir(dst_root, zip_path)

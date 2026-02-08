@@ -1,0 +1,115 @@
+product_id: SOIT-SCOMM-CF-MD-RAK4630-RAK5802-MFM384
+name: Modbus RTU Node - RAK4630 + RAK5802 reading Selec MFM384
+workstream: edge_node
+defaults:
+  region: AS923-1
+  modbus:
+    baudrate: 9600
+    parity: N
+    databits: 8
+    stopbits: 1
+    slave_id_default: 1
+variants:
+- AS9231_RS485_9600N81
+dependencies:
+- SOIT-SCOMM-CF-CD-RAK-7266 (gateway)
+alerting:
+  channels:
+    crm_comments: true
+    email:
+      enabled: true
+      to_roles:
+      - CTO
+      - PROJECT_LEAD
+    mattermost:
+      enabled: true
+      channel: careflow-alerts
+  routing:
+    blocker:
+    - CTO
+    - PROJECT_LEAD
+    - SUPPORT
+    warning:
+    - PROJECT_LEAD
+    - SUPPORT
+    info:
+    - SUPPORT
+state_requirements:
+  site_survey:
+    required_docs:
+    - states/site_survey/sop.md
+    - modbus/meter-setup.md
+    required_checklist: states/site_survey/checklist.yaml
+    required_evidence:
+      photos_min: 4
+      photos_max: 5
+      required_photo_tags:
+      - meter_nameplate
+      - wiring_area
+      - rs485_route
+      - power_source
+    validations:
+    - states/site_survey/validation_meter_model.yaml
+    - states/site_survey/validation_rs485_distance.yaml
+    outputs:
+    - site_survey_report
+  hardware_preparation:
+    required_docs:
+    - states/hardware_preparation/sop.md
+    outputs:
+    - prepared_hardware_list
+  firmware_generate:
+    required_docs:
+    - states/firmware_generate/sop.md
+    approvals:
+    - RND_LEAD
+    outputs:
+    - firmware_bundle_ref
+    - device_profile_ref
+  lab_test:
+    required_docs:
+    - states/lab_test/sop.md
+    validations:
+    - states/lab_test/validation_modbus_poll.yaml
+    - states/lab_test/validation_payload_codec.yaml
+    outputs:
+    - lab_test_log
+    - test_vectors_result
+  on_site_installation:
+    required_docs:
+    - states/on_site_installation/sop.md
+    required_checklist: states/on_site_installation/checklist.yaml
+    required_evidence:
+      photos_min: 4
+      photos_max: 5
+      required_photo_tags:
+      - installed_node
+      - rs485_a_b
+      - enclosure
+      - meter_terminals
+    validations:
+    - states/on_site_installation/validation_ab_polarity.yaml
+    outputs:
+    - installation_report
+  testing:
+    required_docs:
+    - states/testing/sop.md
+    required_checklist: states/testing/checklist.yaml
+    required_evidence:
+      photos_min: 4
+      photos_max: 5
+      required_photo_tags:
+      - uplink_seen
+      - decoded_payload
+      - meter_reading_screen
+      - gateway_rssi_snr
+    validations:
+    - states/testing/validation_ranges.yaml
+    - states/testing/validation_uplink.yaml
+    outputs:
+    - commissioning_report
+  maintenance:
+    required_docs:
+    - states/maintenance/sop.md
+    outputs:
+    - maintenance_log

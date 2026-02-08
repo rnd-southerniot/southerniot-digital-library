@@ -1,0 +1,22 @@
+workstreams:
+- id: gateway
+  required: true
+- id: edge_node
+  required: true
+dependencies:
+- blocker:
+    when:
+      workstream: edge_node
+      state: on_site_installation
+    requires:
+      workstream: gateway
+      min_state: ready_for_installation
+    message: Edge node on-site install blocked until gateway is ready for installation.
+- warning:
+    when:
+      workstream: edge_node
+      state: testing
+    recommends:
+      workstream: gateway
+      min_state: testing
+    message: 'Recommended: gateway should be in testing (or live) before node testing.'

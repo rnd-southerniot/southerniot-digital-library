@@ -1,0 +1,6 @@
+validation_id: MFM384_LAB_CODEC_V1
+severity: blocker
+when_state: lab_test
+rules:
+- codec_test_ok == true
+message: Payload codec test failed. Fix decoding/scaling before shipping to site.

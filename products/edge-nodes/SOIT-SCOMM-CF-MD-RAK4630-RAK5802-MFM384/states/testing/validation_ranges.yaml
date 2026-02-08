@@ -1,0 +1,8 @@
+validation_id: MFM384_TEST_RANGES_V1
+severity: warning
+when_state: testing
+rules:
+- 180 <= voltage_l1 <= 260
+- 180 <= voltage_l2 <= 260
+- 180 <= voltage_l3 <= 260
+message: Voltage out of expected range. Confirm CT/PT config, wiring, and scaling.

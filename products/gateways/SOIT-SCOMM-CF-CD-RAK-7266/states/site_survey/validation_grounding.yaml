@@ -1,0 +1,7 @@
+validation_id: RAK7266_SITE_SURVEY_GROUNDING_V1
+severity: warning
+when_state: site_survey
+rules:
+- grounding_available == true
+message: Grounding not confirmed. High lightning-risk sites should not proceed without
+  grounding plan.

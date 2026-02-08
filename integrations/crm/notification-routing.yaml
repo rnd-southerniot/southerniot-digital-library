@@ -1,0 +1,22 @@
+channels:
+  crm_comments: true
+  email:
+    enabled: true
+    to_roles:
+    - CTO
+    - PROJECT_LEAD
+    subject_prefix: '[Careflow]'
+  mattermost:
+    enabled: true
+    server: https://mattermost.example.local
+    channel: careflow-alerts
+routing:
+  blocker:
+  - CTO
+  - PROJECT_LEAD
+  - SUPPORT
+  warning:
+  - PROJECT_LEAD
+  - SUPPORT
+  info:
+  - SUPPORT

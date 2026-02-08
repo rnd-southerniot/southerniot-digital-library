@@ -1,0 +1,7 @@
+validation_id: RAK7266_SITE_SURVEY_INTERNET_V1
+severity: blocker
+when_state: site_survey
+rules:
+- backhaul in ['ethernet','lte']
+- internet_quality != 'poor'
+message: Internet backhaul missing or too poor for stable gateway connectivity.

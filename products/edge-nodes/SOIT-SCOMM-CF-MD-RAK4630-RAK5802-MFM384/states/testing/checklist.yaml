@@ -1,0 +1,49 @@
+checklist_id: MFM384_TESTING_V1
+title: MFM384 Node Testing Evidence
+fields:
+- id: modbus_poll_ok
+  label: Modbus poll OK
+  type: boolean
+  required: true
+- id: uplink_seen
+  label: LoRaWAN uplink seen
+  type: boolean
+  required: true
+- id: decoded_payload_ok
+  label: Payload decoded OK
+  type: boolean
+  required: true
+- id: voltage_l1
+  label: Voltage L1 (V)
+  type: integer
+  min: 0
+  max: 600
+  required: true
+- id: voltage_l2
+  label: Voltage L2 (V)
+  type: integer
+  min: 0
+  max: 600
+  required: true
+- id: voltage_l3
+  label: Voltage L3 (V)
+  type: integer
+  min: 0
+  max: 600
+  required: true
+- id: photo_uplink_seen
+  label: Photo - uplink in ChirpStack
+  type: photo
+  required: true
+- id: photo_decoded_payload
+  label: Photo - decoded payload view
+  type: photo
+  required: true
+- id: photo_meter_screen
+  label: Photo - meter reading screen
+  type: photo
+  required: true
+- id: photo_gateway_rssi_snr
+  label: Photo - RSSI/SNR
+  type: photo
+  required: true

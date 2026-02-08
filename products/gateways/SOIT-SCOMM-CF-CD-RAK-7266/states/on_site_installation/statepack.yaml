@@ -1,0 +1,25 @@
+state: on_site_installation
+objective: Mount and wire gateway; ensure grounding and weather sealing.
+roles:
+- PROJECT_LEAD
+- FIELD_ENGINEER
+- SUPPORT
+steps:
+- Retrieve product manifest and variant defaults.
+- Follow SOP for this state.
+- Collect required evidence/photos (if applicable).
+- Run validations; fix blockers before proceeding.
+- Attach outputs to CRM workstream.
+required_inputs:
+- variant
+- site_id
+- project_id
+- checklist_payload
+required_evidence:
+  photos_min: 4
+  photos_max: 5
+outputs:
+- crm_comment_update
+- state_completion_record
+notes: Basic Station is default. UDP Packet Forwarder is supported when customer/network
+  requires it.

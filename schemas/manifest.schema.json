@@ -1,0 +1,98 @@
+{
+  "type": "object",
+  "required": [
+    "product_id",
+    "name",
+    "workstream",
+    "defaults",
+    "variants",
+    "state_requirements",
+    "alerting"
+  ],
+  "properties": {
+    "product_id": {
+      "type": "string"
+    },
+    "name": {
+      "type": "string"
+    },
+    "workstream": {
+      "type": "string",
+      "enum": [
+        "gateway",
+        "edge_node",
+        "integration"
+      ]
+    },
+    "defaults": {
+      "type": "object",
+      "required": [
+        "region"
+      ],
+      "properties": {
+        "region": {
+          "type": "string"
+        },
+        "gateway_mode": {
+          "type": "string"
+        },
+        "modbus": {
+          "type": "object"
+        }
+      }
+    },
+    "variants": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "dependencies": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "state_requirements": {
+      "type": "object",
+      "additionalProperties": {
+        "type": "object",
+        "properties": {
+          "required_docs": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          "required_checklist": {
+            "type": "string"
+          },
+          "required_evidence": {
+            "type": "object"
+          },
+          "validations": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          "approvals": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          "outputs": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          }
+        }
+      }
+    },
+    "alerting": {
+      "type": "object"
+    }
+  }
+}

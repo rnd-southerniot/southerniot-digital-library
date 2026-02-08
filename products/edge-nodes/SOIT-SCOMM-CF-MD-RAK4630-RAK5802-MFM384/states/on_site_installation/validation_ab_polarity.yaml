@@ -1,0 +1,7 @@
+validation_id: MFM384_INSTALL_AB_POLARITY_V1
+severity: blocker
+when_state: on_site_installation
+rules:
+- rs485_ab_confirmed == true
+- common_gnd_connected == true
+message: RS-485 A/B not confirmed or common GND missing. Fix wiring before proceeding.

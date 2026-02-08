@@ -1,0 +1,8 @@
+validation_id: RAK7266_LAB_BOOT_SERVICES_V1
+severity: blocker
+when_state: lab_test
+rules:
+- boot_ok == true
+- time_sync_ok == true
+- backhaul_ok == true
+message: 'Lab test failed: boot/time-sync/backhaul not OK.'

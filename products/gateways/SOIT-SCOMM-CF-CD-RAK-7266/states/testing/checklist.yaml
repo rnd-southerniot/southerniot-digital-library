@@ -1,0 +1,30 @@
+checklist_id: RAK7266_TESTING_V1
+title: RAK7266 Testing Evidence
+fields:
+- id: chirpstack_gateway_status
+  label: ChirpStack gateway status
+  type: enum
+  enum:
+  - connected
+  - disconnected
+  required: true
+- id: backhaul_ok
+  label: Backhaul OK
+  type: boolean
+  required: true
+- id: photo_gateway_leds
+  label: Photo - gateway LEDs
+  type: photo
+  required: true
+- id: photo_chirpstack_status
+  label: Photo - ChirpStack status screen
+  type: photo
+  required: true
+- id: photo_rf_environment
+  label: Photo - RF environment (mount view)
+  type: photo
+  required: true
+- id: photo_backhaul
+  label: Photo - backhaul equipment
+  type: photo
+  required: true

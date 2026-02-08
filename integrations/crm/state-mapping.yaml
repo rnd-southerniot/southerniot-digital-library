@@ -1,0 +1,21 @@
+states:
+- crm: initialized
+  library: initialized
+- crm: site_survey
+  library: site_survey
+- crm: hardware_preparation
+  library: hardware_preparation
+- crm: firmware_generate
+  library: firmware_generate
+- crm: lab-test
+  library: lab_test
+- crm: ready for installation
+  library: ready_for_installation
+- crm: on site installation
+  library: on_site_installation
+- crm: testing
+  library: testing
+- crm: live
+  library: live
+- crm: maintenance
+  library: maintenance

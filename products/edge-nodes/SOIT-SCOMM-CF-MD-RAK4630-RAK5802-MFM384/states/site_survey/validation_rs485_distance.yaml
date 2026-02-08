@@ -1,0 +1,7 @@
+validation_id: MFM384_SITE_RS485_DISTANCE_V1
+severity: warning
+when_state: site_survey
+rules:
+- rs485_distance_m <= 1200
+message: RS-485 distance exceeds recommended maximum. Consider repeater or topology
+  changes.

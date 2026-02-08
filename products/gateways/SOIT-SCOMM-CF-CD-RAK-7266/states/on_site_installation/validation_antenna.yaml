@@ -1,0 +1,7 @@
+validation_id: RAK7266_INSTALL_ANTENNA_V1
+severity: blocker
+when_state: on_site_installation
+rules:
+- antenna_connected == true
+- cable_entry_sealed == true
+message: Antenna not connected or cable entry not sealed. Fix before powering up.

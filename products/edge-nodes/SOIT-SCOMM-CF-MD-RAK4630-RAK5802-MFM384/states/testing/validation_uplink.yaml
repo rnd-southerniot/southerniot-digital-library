@@ -1,0 +1,7 @@
+validation_id: MFM384_TEST_UPLINK_V1
+severity: blocker
+when_state: testing
+rules:
+- uplink_seen == true
+- decoded_payload_ok == true
+message: No uplink or decoding failed. Check gateway, keys, payload codec, and RF.

@@ -1,0 +1,6 @@
+validation_id: MFM384_SITE_METER_MODEL_V1
+severity: blocker
+when_state: site_survey
+rules:
+- meter_model == 'MFM384'
+message: Incorrect meter model. This workstream supports Selec MFM384 only.

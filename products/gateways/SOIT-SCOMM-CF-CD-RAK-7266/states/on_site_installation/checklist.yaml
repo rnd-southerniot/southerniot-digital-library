@@ -1,0 +1,27 @@
+checklist_id: RAK7266_ONSITE_INSTALL_V1
+title: RAK7266 On-site Installation Evidence
+fields:
+- id: antenna_connected
+  label: Antenna connected
+  type: boolean
+  required: true
+- id: cable_entry_sealed
+  label: Cable entry sealed
+  type: boolean
+  required: true
+- id: photo_mounted_unit
+  label: Photo - mounted unit
+  type: photo
+  required: true
+- id: photo_antenna
+  label: Photo - antenna + cable
+  type: photo
+  required: true
+- id: photo_grounding
+  label: Photo - grounding
+  type: photo
+  required: true
+- id: photo_cable_entry
+  label: Photo - cable entry
+  type: photo
+  required: true

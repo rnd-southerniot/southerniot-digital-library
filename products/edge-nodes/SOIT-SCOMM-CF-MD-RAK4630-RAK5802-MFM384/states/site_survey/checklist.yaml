@@ -1,0 +1,45 @@
+checklist_id: MFM384_SITE_SURVEY_V1
+title: MFM384 Node Site Survey (Modbus + LoRaWAN)
+fields:
+- id: meter_model
+  label: Meter model
+  type: enum
+  enum:
+  - MFM384
+  required: true
+- id: modbus_slave_id
+  label: Modbus slave ID
+  type: integer
+  min: 1
+  max: 247
+  required: true
+- id: rs485_distance_m
+  label: RS-485 distance (m)
+  type: integer
+  min: 1
+  max: 2000
+  required: true
+- id: power_source
+  label: Power source
+  type: enum
+  enum:
+  - grid
+  - generator
+  - ups
+  required: true
+- id: photo_meter_nameplate
+  label: Photo - meter nameplate
+  type: photo
+  required: true
+- id: photo_wiring_area
+  label: Photo - wiring area access
+  type: photo
+  required: true
+- id: photo_rs485_route
+  label: Photo - RS485 route/cable path
+  type: photo
+  required: true
+- id: photo_power_source
+  label: Photo - power source
+  type: photo
+  required: true

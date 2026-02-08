@@ -1,0 +1,9 @@
+validation_id: MFM384_LAB_MODBUS_POLL_V1
+severity: blocker
+when_state: lab_test
+rules:
+- modbus_poll_ok == true
+- modbus_baudrate == 9600
+- modbus_parity == 'N'
+- modbus_stopbits == 1
+message: 'Lab test failed: Modbus poll not OK or settings mismatch (expected 9600-N-8-1).'

@@ -1,0 +1,20 @@
+endianness:
+  word: big
+  byte: big
+decode:
+- name: voltage_l1
+  from: 40001
+  type: uint16
+  scale: 0.1
+- name: current_l1
+  from: 40007
+  type: uint16
+  scale: 0.01
+- name: active_power_total
+  from: 40013
+  type: int32
+  scale: 1
+- name: energy_kwh
+  from: 40017
+  type: uint32
+  scale: 0.1

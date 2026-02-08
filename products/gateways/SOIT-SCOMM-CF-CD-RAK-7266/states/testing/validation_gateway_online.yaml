@@ -1,0 +1,6 @@
+validation_id: RAK7266_TEST_ONLINE_V1
+severity: blocker
+when_state: testing
+rules:
+- chirpstack_gateway_status == 'connected'
+message: Gateway not connected in ChirpStack. Check mode, ports, gateway ID, backhaul.

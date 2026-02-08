@@ -1,0 +1,4 @@
+variant: AS9231_BASIC_STATION_POE
+region: AS923-1
+power: PoE
+gateway_mode: basic_station

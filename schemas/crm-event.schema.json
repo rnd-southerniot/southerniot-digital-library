@@ -1,0 +1,31 @@
+{
+  "type": "object",
+  "required": [
+    "project_id",
+    "workstream",
+    "state",
+    "product_id",
+    "variant",
+    "payload"
+  ],
+  "properties": {
+    "project_id": {
+      "type": "string"
+    },
+    "workstream": {
+      "type": "string"
+    },
+    "state": {
+      "type": "string"
+    },
+    "product_id": {
+      "type": "string"
+    },
+    "variant": {
+      "type": "string"
+    },
+    "payload": {
+      "type": "object"
+    }
+  }
+}

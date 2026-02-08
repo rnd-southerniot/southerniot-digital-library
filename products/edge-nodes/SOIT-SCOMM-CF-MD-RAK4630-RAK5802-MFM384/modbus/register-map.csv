@@ -1,0 +1,9 @@
+parameter,fc,register,type,words,scale,unit
+voltage_l1,03,40001,uint16,1,0.1,V
+voltage_l2,03,40003,uint16,1,0.1,V
+voltage_l3,03,40005,uint16,1,0.1,V
+current_l1,03,40007,uint16,1,0.01,A
+current_l2,03,40009,uint16,1,0.01,A
+current_l3,03,40011,uint16,1,0.01,A
+active_power_total,03,40013,int32,2,1,W
+energy_kwh,03,40017,uint32,2,0.1,kWh

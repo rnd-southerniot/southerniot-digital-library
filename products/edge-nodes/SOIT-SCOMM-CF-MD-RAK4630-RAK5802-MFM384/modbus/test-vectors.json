@@ -1,0 +1,25 @@
+{
+  "vectors": [
+    {
+      "desc": "Nominal 230V single reading",
+      "input_registers": {
+        "40001": 2300
+      },
+      "expected": {
+        "voltage_l1": 230.0
+      }
+    },
+    {
+      "desc": "Energy 12.3kWh packed",
+      "input_registers": {
+        "40017": [
+          0,
+          123
+        ]
+      },
+      "expected": {
+        "energy_kwh": 12.3
+      }
+    }
+  ]
+}

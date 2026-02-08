@@ -1,0 +1,56 @@
+{
+  "type": "object",
+  "required": [
+    "channels",
+    "routing"
+  ],
+  "properties": {
+    "channels": {
+      "type": "object",
+      "required": [
+        "crm_comments",
+        "email",
+        "mattermost"
+      ],
+      "properties": {
+        "crm_comments": {
+          "type": "boolean"
+        },
+        "email": {
+          "type": "object"
+        },
+        "mattermost": {
+          "type": "object"
+        }
+      }
+    },
+    "routing": {
+      "type": "object",
+      "required": [
+        "blocker",
+        "warning",
+        "info"
+      ],
+      "properties": {
+        "blocker": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "warning": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "info": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        }
+      }
+    }
+  }
+}

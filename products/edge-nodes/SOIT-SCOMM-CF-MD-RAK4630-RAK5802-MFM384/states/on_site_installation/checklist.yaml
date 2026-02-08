@@ -1,0 +1,27 @@
+checklist_id: MFM384_ONSITE_INSTALL_V1
+title: MFM384 Node On-site Installation Evidence
+fields:
+- id: rs485_ab_confirmed
+  label: RS-485 A/B confirmed
+  type: boolean
+  required: true
+- id: common_gnd_connected
+  label: Common GND connected
+  type: boolean
+  required: true
+- id: photo_installed_node
+  label: Photo - installed node
+  type: photo
+  required: true
+- id: photo_rs485_ab
+  label: Photo - RS485 A/B wiring
+  type: photo
+  required: true
+- id: photo_enclosure
+  label: Photo - enclosure sealing/entry
+  type: photo
+  required: true
+- id: photo_meter_terminals
+  label: Photo - meter terminals
+  type: photo
+  required: true

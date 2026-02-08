@@ -1,0 +1,23 @@
+state: initialized
+objective: Create node workstream, assign variant, bind to gateway workstream.
+roles:
+- RND_ENGINEER
+- RND_LEAD
+- PROJECT_LEAD
+steps:
+- Retrieve product manifest and defaults (AS923-1, 9600-N-8-1).
+- Follow SOP for this state.
+- Collect required photos/evidence (if applicable).
+- Run validations; fix blockers before proceeding.
+- Attach outputs to CRM workstream.
+required_inputs:
+- variant
+- site_id
+- project_id
+- modbus_slave_id
+required_evidence: {}
+outputs:
+- crm_comment_update
+- state_completion_record
+notes: Default Modbus is 9600-N-8-1. Any deviation must be recorded as a variant and
+  approved.

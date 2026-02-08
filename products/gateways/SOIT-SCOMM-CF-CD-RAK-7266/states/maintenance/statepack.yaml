@@ -1,0 +1,22 @@
+state: maintenance
+objective: Periodic inspection, firmware updates, backhaul checks, and incident SOP.
+roles:
+- PROJECT_LEAD
+- FIELD_ENGINEER
+- SUPPORT
+steps:
+- Retrieve product manifest and variant defaults.
+- Follow SOP for this state.
+- Collect required evidence/photos (if applicable).
+- Run validations; fix blockers before proceeding.
+- Attach outputs to CRM workstream.
+required_inputs:
+- variant
+- site_id
+- project_id
+required_evidence: {}
+outputs:
+- crm_comment_update
+- state_completion_record
+notes: Basic Station is default. UDP Packet Forwarder is supported when customer/network
+  requires it.

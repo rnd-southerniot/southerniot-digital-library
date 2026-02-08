@@ -1,0 +1,26 @@
+state: on_site_installation
+objective: Wire RS-485, power, mount enclosure, verify A/B and common GND.
+roles:
+- FIELD_ENGINEER
+- PROJECT_LEAD
+- SUPPORT
+steps:
+- Retrieve product manifest and defaults (AS923-1, 9600-N-8-1).
+- Follow SOP for this state.
+- Collect required photos/evidence (if applicable).
+- Run validations; fix blockers before proceeding.
+- Attach outputs to CRM workstream.
+required_inputs:
+- variant
+- site_id
+- project_id
+- modbus_slave_id
+- checklist_payload
+required_evidence:
+  photos_min: 4
+  photos_max: 5
+outputs:
+- crm_comment_update
+- state_completion_record
+notes: Default Modbus is 9600-N-8-1. Any deviation must be recorded as a variant and
+  approved.

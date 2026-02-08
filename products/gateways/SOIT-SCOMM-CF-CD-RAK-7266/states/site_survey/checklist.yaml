@@ -1,0 +1,52 @@
+checklist_id: RAK7266_SITE_SURVEY_V1
+title: RAK7266 Site Survey (AS923-1)
+fields:
+- id: mounting_type
+  label: Mounting type
+  type: enum
+  enum:
+  - pole
+  - wall
+  - rooftop
+  required: true
+- id: mounting_height_m
+  label: Mounting height (m)
+  type: integer
+  min: 2
+  max: 30
+  required: true
+- id: backhaul
+  label: Backhaul type
+  type: enum
+  enum:
+  - ethernet
+  - lte
+  required: true
+- id: internet_quality
+  label: Internet quality
+  type: enum
+  enum:
+  - good
+  - average
+  - poor
+  required: true
+- id: grounding_available
+  label: Grounding available
+  type: boolean
+  required: true
+- id: photo_mount_location
+  label: Photo - mount location
+  type: photo
+  required: true
+- id: photo_sky_view
+  label: Photo - sky view / RF clearance
+  type: photo
+  required: true
+- id: photo_power_source
+  label: Photo - power source
+  type: photo
+  required: true
+- id: photo_internet_source
+  label: Photo - internet source
+  type: photo
+  required: true

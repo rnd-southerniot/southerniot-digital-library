@@ -1,0 +1,6 @@
+validation_id: RAK7266_READY_FOR_INSTALL_V1
+severity: info
+when_state: ready_for_installation
+rules:
+  - accessories_packed == true
+message: Gateway is packaged and ready for installation.

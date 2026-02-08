@@ -1,0 +1,15 @@
+checklist_id: RAK7266_FIRMWARE_GENERATE_V1
+title: RAK7266 Firmware/Config Bundle Generation
+fields:
+  - id: rnd_lead_approval_recorded
+    label: RND_LEAD approval recorded in CRM
+    type: boolean
+    required: true
+  - id: artifact_id
+    label: Nextcloud artifact_id for config bundle
+    type: string
+    required: true
+  - id: sha256
+    label: SHA256 checksum (64 hex chars)
+    type: string
+    required: true

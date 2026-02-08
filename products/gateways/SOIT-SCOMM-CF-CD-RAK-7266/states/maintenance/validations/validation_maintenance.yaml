@@ -1,0 +1,6 @@
+validation_id: RAK7266_MAINTENANCE_REVIEW_V1
+severity: info
+when_state: maintenance
+rules:
+  - alerts_reviewed == true
+message: Maintenance checklist completed.

@@ -1,0 +1,15 @@
+checklist_id: RAK7266_READY_FOR_INSTALL_V1
+title: RAK7266 Ready for Installation
+fields:
+  - id: lab_test_attached
+    label: Lab test log attached in CRM
+    type: boolean
+    required: true
+  - id: accessories_packed
+    label: Accessories packed (antenna, mount, power, cables)
+    type: boolean
+    required: true
+  - id: install_window_confirmed
+    label: Install window confirmed with site contact
+    type: boolean
+    required: true

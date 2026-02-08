@@ -1,0 +1,6 @@
+validation_id: RAK7266_ALERTING_ENABLED_V1
+severity: warning
+when_state: live
+rules:
+  - alerting_verified == true
+message: Verify alert routing before handover to OPS.

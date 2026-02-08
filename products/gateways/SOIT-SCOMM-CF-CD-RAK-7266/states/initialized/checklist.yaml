@@ -1,0 +1,20 @@
+checklist_id: RAK7266_INITIALIZED_V1
+title: RAK7266 Initialized (CRM + Variant)
+fields:
+  - id: crm_workstream_created
+    label: CRM workstream "gateway" created/confirmed
+    type: boolean
+    required: true
+  - id: variant_id
+    label: Selected variant
+    type: enum
+    enum:
+      - AS9231_BASIC_STATION_POE
+      - AS9231_BASIC_STATION_LTE
+      - AS9231_UDP_PACKET_FORWARDER_POE
+      - AS9231_UDP_PACKET_FORWARDER_LTE
+    required: true
+  - id: acceptance_criteria
+    label: Acceptance criteria (summary)
+    type: string
+    required: true

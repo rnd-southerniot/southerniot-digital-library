@@ -1,4 +1,0 @@
-variant: AS9231_UDP_PACKET_FORWARDER_POE
-region: AS923-1
-power: PoE
-gateway_mode: udp_packet_forwarder

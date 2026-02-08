@@ -1,0 +1,11 @@
+checklist_id: MFM384_MAINTENANCE_V1
+title: MFM384 Node Maintenance
+fields:
+  - id: last_seen_ok
+    label: Node last-seen status OK
+    type: boolean
+    required: true
+  - id: alerts_reviewed
+    label: Alerts reviewed and actioned
+    type: boolean
+    required: true

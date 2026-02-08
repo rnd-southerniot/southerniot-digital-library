@@ -1,0 +1,6 @@
+validation_id: MFM384_READY_FOR_INSTALL_V1
+severity: info
+when_state: ready_for_installation
+rules:
+  - wiring_accessories_packed == true
+message: Node is packaged and ready for installation.

@@ -1,0 +1,6 @@
+validation_id: MFM384_INITIALIZED_VARIANT_SET_V1
+severity: info
+when_state: initialized
+rules:
+  - variant_id exists
+message: Variant selected and recorded.

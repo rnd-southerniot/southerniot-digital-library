@@ -1,0 +1,15 @@
+checklist_id: MFM384_LAB_TEST_V1
+title: MFM384 Node Lab Test
+fields:
+  - id: modbus_poll_ok
+    label: Modbus poll succeeded
+    type: boolean
+    required: true
+  - id: codec_test_ok
+    label: Payload codec test succeeded
+    type: boolean
+    required: true
+  - id: uplink_seen
+    label: Uplink seen in backend (optional)
+    type: boolean
+    required: false

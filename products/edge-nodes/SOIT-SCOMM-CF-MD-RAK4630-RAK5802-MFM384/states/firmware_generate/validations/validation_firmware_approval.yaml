@@ -1,0 +1,6 @@
+validation_id: MFM384_FW_APPROVAL_REQUIRED_V1
+severity: blocker
+when_state: firmware_generate
+rules:
+  - rnd_lead_approval_recorded == true
+message: Firmware generation requires RND_LEAD approval.

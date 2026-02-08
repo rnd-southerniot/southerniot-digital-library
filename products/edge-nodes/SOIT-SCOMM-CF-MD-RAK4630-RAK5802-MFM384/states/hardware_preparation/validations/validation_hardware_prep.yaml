@@ -1,0 +1,6 @@
+validation_id: MFM384_HW_PREP_COMPLETE_V1
+severity: info
+when_state: hardware_preparation
+rules:
+  - enclosure_labeled == true
+message: Hardware preparation checklist completed.

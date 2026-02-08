@@ -9,7 +9,8 @@ from pathlib import Path
 from typing import Any, Iterable
 
 import yaml
-from jsonschema import Draft202012Validator, RefResolver
+from jsonschema import Draft202012Validator
+from referencing import Registry, Resource
 
 try:
     from rich.console import Console
@@ -120,11 +121,14 @@ def _load_schema_store() -> tuple[dict[str, Any], dict[str, Draft202012Validator
             raise ValueError(f"Schema missing $id: {path}")
         store[schema_id] = schema
 
+    registry = Registry().with_resources(
+        [(schema_id, Resource.from_contents(schema)) for schema_id, schema in store.items()]
+    )
+
     validators: dict[str, Draft202012Validator] = {}
     for path, schema in schemas:
         name = path.name
-        resolver = RefResolver.from_schema(schema, store=store)
-        validators[name] = Draft202012Validator(schema, resolver=resolver)
+        validators[name] = Draft202012Validator(schema, registry=registry)
     return store, validators
 
 
@@ -388,6 +392,8 @@ def _check_product(
 
 
 def _print_summary(findings: list[Finding], checked: dict[str, int]) -> None:
+    blockers = [f for f in findings if f.severity == "blocker"]
+    warnings = [f for f in findings if f.severity == "warning"]
     if Console and Table:
         console = Console()
         table = Table(title="DPL Validation Summary")
@@ -395,12 +401,8 @@ def _print_summary(findings: list[Finding], checked: dict[str, int]) -> None:
         table.add_column("Checked", justify="right")
         table.add_column("Blockers", justify="right")
         table.add_column("Warnings", justify="right")
-        table.add_row("taxonomy", str(checked.get("taxonomy", 0)),
-                      str(sum(1 for f in findings if f.severity == "blocker" and (f.path or "").endswith(".yaml") and "taxonomy" in (f.path or ""))),  # best-effort
-                      str(sum(1 for f in findings if f.severity == "warning")))
-        table.add_row("products", str(checked.get("products", 0)),
-                      str(sum(1 for f in findings if f.severity == "blocker")),
-                      str(sum(1 for f in findings if f.severity == "warning")))
+        table.add_row("taxonomy", str(checked.get("taxonomy", 0)), "-", "-")
+        table.add_row("products", str(checked.get("products", 0)), str(len(blockers)), str(len(warnings)))
         console.print(table)
         for f in findings[:10]:
             loc = f" ({f.path})" if f.path else ""

@@ -42,6 +42,8 @@ It drives:
 - Build search index: `python tools/build_search_index.py`
 - Export an offline field pack:
   - `python tools/export_field_pack.py --project-id P-123 --product-id SOIT-SCOMM-CF-CD-RAK-7266 --variant AS9231_BASIC_STATION_POE --out out/`
+  - Role-filtered export example:
+    - `python tools/export_field_pack.py --project-id P-123 --product-id SOIT-SCOMM-CF-CD-RAK-7266 --variant AS9231_BASIC_STATION_POE --roles FIELD_ENGINEER --out out/`
 
 ## CI
 GitHub Actions runs validation + index build on push/PR (see `.github/workflows/validate.yml`).

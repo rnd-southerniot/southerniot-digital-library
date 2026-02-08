@@ -7,11 +7,11 @@ states:
   library: hardware_preparation
 - crm: firmware_generate
   library: firmware_generate
-- crm: lab-test
+- crm: lab_test
   library: lab_test
-- crm: ready for installation
+- crm: ready_for_installation
   library: ready_for_installation
-- crm: on site installation
+- crm: on_site_installation
   library: on_site_installation
 - crm: testing
   library: testing

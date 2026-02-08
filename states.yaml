@@ -1,0 +1,11 @@
+states:
+  - initialized
+  - site_survey
+  - hardware_preparation
+  - firmware_generate
+  - lab_test
+  - ready_for_installation
+  - on_site_installation
+  - testing
+  - live
+  - maintenance

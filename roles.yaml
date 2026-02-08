@@ -1,0 +1,15 @@
+roles:
+  - id: CTO
+    description: Executive sponsor; approves risk/impact decisions.
+  - id: RND_LEAD
+    description: Firmware and hardware R&D lead; only role allowed to approve firmware generation.
+  - id: RND_ENGINEER
+    description: R&D engineer; prepares builds, lab tests, and design updates.
+  - id: PROJECT_LEAD
+    description: Delivery owner; coordinates states and acceptance.
+  - id: FIELD_ENGINEER
+    description: Performs site survey, installation, and field testing.
+  - id: SUPPORT
+    description: Troubleshooting and customer support.
+  - id: OPS
+    description: Operations; monitoring, maintenance, and escalation.

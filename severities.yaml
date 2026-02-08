@@ -1,0 +1,7 @@
+severities:
+  - id: blocker
+    description: Must be fixed before proceeding.
+  - id: warning
+    description: Should be addressed; may proceed with documented risk.
+  - id: info
+    description: Informational only.

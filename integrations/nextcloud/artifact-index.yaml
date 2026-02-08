@@ -1,1 +1,16 @@
-artifacts: []
+version: 1
+artifacts:
+  - artifact_id: NC-RAK7266-VENDOR-PDFS-2026-02-08
+    sha256: "0000000000000000000000000000000000000000000000000000000000000000"
+    nextcloud_path: "/DPL/vendor/RAK/RAK7266/pdfs/RAK7266_vendor_bundle.pdf"
+    mime: application/pdf
+    description: Vendor PDF bundle (placeholder hash; update on upload).
+    tags: [vendor, hardware]
+    created_at: "2026-02-08"
+  - artifact_id: NC-MFM384-REGISTER-MAP-2026-02-08
+    sha256: "0000000000000000000000000000000000000000000000000000000000000000"
+    nextcloud_path: "/DPL/vendor/Selec/MFM384/MFM384_register_map.pdf"
+    mime: application/pdf
+    description: Selec MFM384 register map (placeholder hash; update on upload).
+    tags: [vendor, modbus]
+    created_at: "2026-02-08"

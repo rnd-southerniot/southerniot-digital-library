@@ -1,0 +1,9 @@
+.index/
+dist/
+out/
+*.zip
+__pycache__/
+*.pyc
+.pytest_cache/
+.venv/
+.DS_Store

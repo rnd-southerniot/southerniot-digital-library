@@ -1,0 +1,28 @@
+name: Validate DPL Library
+
+on:
+  push:
+  pull_request:
+
+jobs:
+  validate:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+
+      - name: Install dependencies
+        run: |
+          python -m pip install --upgrade pip
+          python -m pip install -r tools/requirements.txt
+
+      - name: Validate library
+        run: python tools/validate_library.py
+
+      - name: Build search index
+        run: python tools/build_search_index.py

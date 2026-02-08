@@ -1,0 +1,17 @@
+checklist_id: RAK7266_HARDWARE_PREP_V1
+title: RAK7266 Hardware Preparation
+fields:
+  - id: unit_labeled
+    label: Unit labeled with project/site
+    type: boolean
+    required: true
+  - id: power_method
+    label: Power method prepared
+    type: enum
+    enum: [poe, dc]
+    required: true
+  - id: backhaul_method
+    label: Backhaul method prepared
+    type: enum
+    enum: [ethernet, lte]
+    required: true

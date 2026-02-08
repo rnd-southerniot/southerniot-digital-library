@@ -1,0 +1,5 @@
+variant_id: AS9231_UDP_PACKET_FORWARDER_POE
+region: AS923-1
+gateway_mode: udp_packet_forwarder
+backhaul: ethernet
+power: poe

@@ -1,0 +1,15 @@
+checklist_id: RAK7266_LAB_TEST_V1
+title: RAK7266 Lab Test
+fields:
+  - id: boot_ok
+    label: Device boots without errors
+    type: boolean
+    required: true
+  - id: backhaul_ok
+    label: Backhaul connectivity verified
+    type: boolean
+    required: true
+  - id: time_sync_ok
+    label: Time sync verified (NTP)
+    type: boolean
+    required: true

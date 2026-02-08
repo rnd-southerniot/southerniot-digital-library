@@ -1,0 +1,5 @@
+variant_id: AS9231_BASIC_STATION_LTE
+region: AS923-1
+gateway_mode: basic_station
+backhaul: lte
+power: dc

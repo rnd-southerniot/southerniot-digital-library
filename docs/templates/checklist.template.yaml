@@ -1,0 +1,18 @@
+checklist_id: <PRODUCT>_<STATE>_V1
+title: <Checklist title>
+fields:
+- id: prerequisite_confirmed
+  label: Prerequisite confirmed
+  type: boolean
+  required: true
+- id: quality_grade
+  label: Quality grade
+  type: enum
+  enum:
+  - pass
+  - rework
+  required: true
+- id: evidence_photo_1
+  label: Evidence photo
+  type: photo
+  required: true

@@ -34,3 +34,58 @@
 ## 7) Evidence and approvals are policy, not prose
 - Evidence photo counts/tags for `site_survey`, `on_site_installation`, `testing` are enforced by validator rules.
 - Firmware approvals are enforced: `firmware_generate` requires `approvals: [RND_LEAD]`.
+
+## 8) Restart rationale and ownership model
+- The repository was intentionally restarted as a clean baseline to remove drift between ad-hoc docs, CRM behavior, and executable validation rules.
+- Ownership is explicit by artifact class:
+  - product maintainers own product packs and release notes
+  - schema/tool maintainers own validation contracts and automation
+  - docs-core owns cross-cutting architecture/process documentation
+- Any architecture or process change must include both:
+  - decision-log update in this file
+  - release-note entry in affected product packs when operational behavior changes
+
+## 9) Phase-1 MVP is contract-first ingestion, retrieval, and export
+- The updated MVP architecture is intentionally limited to three runtime surfaces:
+  - event ingestion
+  - deterministic document search
+  - asynchronous field-pack export
+- Runtime services consume contracts authored in this repository; they do not redefine taxonomy, state transitions, or product-pack requirements.
+- AI stays retrieval-only for the MVP and must not generate write-path decisions or mutate delivery state outside validated service contracts.
+- The backend audit model is split into:
+  - immutable event ledger for traceability
+  - materialized projections for CRM/support read paths
+  - export job records for offline package delivery
+- MVP release readiness requires:
+  - validator and contract checks in CI
+  - one end-to-end pilot across existing gateway and edge-node product packs
+  - runbooks for contract failures and export-job triage
+
+## 10) Phase-2 thin-slice pilot is the required production bridge
+- Phase-2 backend rollout must follow a thin-slice pilot before broad launch:
+  - one gateway and one edge-node workstream in shadow mode first
+  - explicit cutover gate with board go/no-go evidence
+  - documented rollback triggers for ingestion error rate, projection lag, and export backlog
+- Pilot plan of record is `docs/backend-thin-slice-pilot-plan.md`.
+- Service contract and DB implementation details remain in `integrations/crm/backend-service-contract.md`.
+
+## 10) Phase-2 docs launch gate and release-note artifact binding
+- Documentation release readiness is now treated as an explicit launch gate, not an implicit PR convention.
+- A dedicated runbook (`docs/runbooks/docs-launch-gate.md`) defines:
+  - ownership rotation (`docs-core` weekly coordinator; product maintainers per-pack release-note owner)
+  - cadence (per-change plus weekly sweep)
+  - required checks (cross-doc consistency, validator proof, onboarding timing, and decision logging)
+- Release-note entries for active products must include artifact checksum linkage (`artifact_id` + `sha256`) from `integrations/nextcloud/artifact-index.yaml`.
+- Onboarding readiness is measured with a timed dry-run log (`docs/runbooks/onboarding-dry-run.md`) and kept below 30 minutes through recorded corrective actions.
+
+## 10) Phase-2 launch gate splits CI into required independent checks with retained evidence
+- Launch readiness is enforced through four independent required checks in `Validate DPL Library`:
+  - `validator`
+  - `fixtures`
+  - `index-build`
+  - `export-smoke`
+- Validation and export-smoke jobs must publish audit artifacts for each run:
+  - `out/validation-report.json`
+  - `out/release-smoke/*.zip` and `out/release-smoke/SHA256SUMS.txt`
+- Branch protection must require all four checks on `main` and block merges on any failure.
+- Evidence collection for launch approval is operationalized in runbooks and tracked in owning issues.

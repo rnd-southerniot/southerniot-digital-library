@@ -1,0 +1,40 @@
+product_id: SOIT-<TYPE>-<MODEL>
+name: <Human-readable product name>
+workstream: gateway
+defaults:
+  region: AS923-1
+  gateway_mode: basic_station
+variants:
+- <VARIANT_ID_1>
+dependencies: []
+alerting:
+  channels:
+    crm_comments: true
+    email:
+      enabled: true
+      to_roles:
+      - PROJECT_LEAD
+    mattermost:
+      enabled: true
+      channel: careflow-alerts
+  routing:
+    blocker:
+    - PROJECT_LEAD
+    warning:
+    - SUPPORT
+    info:
+    - SUPPORT
+state_requirements:
+  site_survey:
+    required_docs:
+    - states/site_survey/docs/sop.md
+    required_checklist: states/site_survey/checklist.yaml
+    required_evidence:
+      photos_min: 4
+      photos_max: 5
+      required_photo_tags:
+      - mount_location
+    validations:
+    - states/site_survey/validations/validation_site_ready.yaml
+    outputs:
+    - site_survey_report

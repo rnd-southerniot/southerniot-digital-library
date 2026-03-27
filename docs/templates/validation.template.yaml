@@ -1,0 +1,6 @@
+validation_id: <PRODUCT>_<STATE>_<RULE>_V1
+severity: blocker
+when_state: site_survey
+rules:
+- prerequisite_confirmed == true
+message: Required prerequisite was not confirmed in checklist payload.

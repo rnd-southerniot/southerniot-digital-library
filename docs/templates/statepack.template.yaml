@@ -1,0 +1,24 @@
+state: site_survey
+objective: Confirm site conditions and prerequisites before hardware preparation.
+roles:
+- PROJECT_LEAD
+- FIELD_ENGINEER
+steps:
+- Retrieve manifest, variant defaults, and current CRM state.
+- Execute SOP and capture required checklist/evidence.
+- Run validations and resolve blockers.
+required_inputs:
+- project_id
+- site_id
+- variant
+- checklist_payload
+required_evidence:
+  photos_min: 4
+  photos_max: 5
+  required_photo_tags:
+  - mount_location
+  - sky_view
+outputs:
+- site_survey_report
+- state_completion_record
+notes: Update values to match product-specific constraints.

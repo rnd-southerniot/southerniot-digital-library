@@ -1,0 +1,28 @@
+{
+  "status": "error",
+  "error": {
+    "code": "SCHEMA_VALIDATION_FAILED",
+    "message": "Incoming event does not match crm-event.schema.json",
+    "category": "validation",
+    "retriable": false,
+    "causes": [
+      {
+        "code": "MISSING_REQUIRED_FIELD",
+        "message": "Field 'payload.to_state' is required",
+        "field": "payload.to_state"
+      }
+    ],
+    "details": {
+      "schema": "crm-event.schema.json",
+      "event_id": "evt_20260327_9991"
+    }
+  },
+  "meta": {
+    "request_id": "req_20260327_1001",
+    "trace_id": "trace_6c93e7e3_9991",
+    "timestamp": "2026-03-27T09:25:00Z",
+    "service": "validator",
+    "version": "1.0.0"
+  },
+  "source_event_id": "evt_20260327_9991"
+}

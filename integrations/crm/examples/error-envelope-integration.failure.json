@@ -1,0 +1,27 @@
+{
+  "status": "error",
+  "error": {
+    "code": "CHIRPSTACK_UPSTREAM_TIMEOUT",
+    "message": "ChirpStack API timed out during gateway lifecycle sync",
+    "category": "integration",
+    "retriable": true,
+    "causes": [
+      {
+        "code": "HTTP_TIMEOUT",
+        "message": "Timeout after 3000ms"
+      }
+    ],
+    "details": {
+      "upstream": "chirpstack",
+      "attempt": 3
+    }
+  },
+  "meta": {
+    "request_id": "req_20260327_1002",
+    "trace_id": "trace_6c93e7e3_9992",
+    "timestamp": "2026-03-27T09:25:10Z",
+    "service": "crm-ingestion",
+    "version": "1.0.0"
+  },
+  "source_event_id": "evt_20260327_9992"
+}

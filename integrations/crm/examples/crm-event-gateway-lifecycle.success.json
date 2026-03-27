@@ -1,0 +1,22 @@
+{
+  "event_id": "evt_20260327_0004",
+  "event_type": "gateway_lifecycle",
+  "created_at": "2026-03-27T09:24:30Z",
+  "project_id": "P-123",
+  "workstream": "gateway",
+  "state": "live",
+  "product_id": "SOIT-SCOMM-CF-CD-RAK-7266",
+  "variant": "AS9231_BASIC_STATION_POE",
+  "trace_id": "trace_6c93e7e3_0004",
+  "source": {
+    "system": "ops_portal",
+    "version": "2.5.1",
+    "actor": "field_engineer"
+  },
+  "payload": {
+    "gateway_id": "GW-RAK7266-BD-0001",
+    "action": "heartbeat",
+    "status": "success",
+    "chirpstack_gateway_id": "00800000A000B001"
+  }
+}

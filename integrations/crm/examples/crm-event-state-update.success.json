@@ -1,0 +1,22 @@
+{
+  "event_id": "evt_20260327_0001",
+  "event_type": "state_update",
+  "created_at": "2026-03-27T09:24:00Z",
+  "project_id": "P-123",
+  "workstream": "gateway",
+  "state": "ready_for_installation",
+  "product_id": "SOIT-SCOMM-CF-CD-RAK-7266",
+  "variant": "AS9231_BASIC_STATION_POE",
+  "trace_id": "trace_6c93e7e3_0001",
+  "source": {
+    "system": "crm",
+    "version": "2026.03.0",
+    "actor": "project_lead"
+  },
+  "payload": {
+    "from_state": "lab_test",
+    "to_state": "ready_for_installation",
+    "transition_reason": "All lab acceptance checks passed.",
+    "evidence_count": 4
+  }
+}

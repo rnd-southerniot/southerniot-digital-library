@@ -1,18 +1,50 @@
 {
   "$schema": "https://json-schema.org/draft/2020-12/schema",
   "$id": "https://southerniot.local/dpl/schemas/crm-event.schema.json",
+  "title": "SouthernIoT CRM Event",
   "type": "object",
   "additionalProperties": false,
-  "required": ["project_id", "workstream", "state", "product_id", "variant", "payload"],
+  "required": [
+    "event_id",
+    "event_type",
+    "created_at",
+    "project_id",
+    "workstream",
+    "state",
+    "product_id",
+    "variant",
+    "source",
+    "payload"
+  ],
   "properties": {
-    "event_id": { "type": "string" },
+    "event_id": {
+      "type": "string",
+      "pattern": "^[A-Za-z0-9_.:-]{8,128}$"
+    },
     "event_type": {
       "type": "string",
-      "enum": ["state_update", "checklist_submission", "validation_result", "alert"]
+      "enum": [
+        "state_update",
+        "checklist_submission",
+        "validation_result",
+        "alert",
+        "device_lifecycle",
+        "gateway_lifecycle",
+        "chirpstack_uplink"
+      ]
     },
-    "created_at": { "type": "string", "format": "date-time" },
-    "project_id": { "type": "string" },
-    "workstream": { "type": "string", "enum": ["gateway", "edge_node"] },
+    "created_at": {
+      "type": "string",
+      "format": "date-time"
+    },
+    "project_id": {
+      "type": "string",
+      "minLength": 1
+    },
+    "workstream": {
+      "type": "string",
+      "enum": ["gateway", "edge_node", "integration"]
+    },
     "state": {
       "type": "string",
       "enum": [
@@ -28,8 +60,395 @@
         "maintenance"
       ]
     },
-    "product_id": { "type": "string" },
-    "variant": { "type": "string" },
-    "payload": { "type": "object" }
-  }
+    "product_id": {
+      "type": "string",
+      "minLength": 1
+    },
+    "variant": {
+      "type": "string",
+      "minLength": 1
+    },
+    "trace_id": {
+      "type": "string",
+      "pattern": "^[A-Za-z0-9_.:-]{8,128}$"
+    },
+    "correlation_id": {
+      "type": "string",
+      "pattern": "^[A-Za-z0-9_.:-]{8,128}$"
+    },
+    "source": {
+      "$ref": "#/$defs/source"
+    },
+    "payload": {
+      "type": "object"
+    }
+  },
+  "$defs": {
+    "source": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["system", "version"],
+      "properties": {
+        "system": {
+          "type": "string",
+          "enum": [
+            "crm",
+            "dpl_validator",
+            "dpl_exporter",
+            "chirpstack",
+            "ops_portal",
+            "scheduler"
+          ]
+        },
+        "version": {
+          "type": "string",
+          "minLength": 1
+        },
+        "actor": {
+          "type": "string"
+        }
+      }
+    },
+    "finding": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["severity", "code", "message"],
+      "properties": {
+        "severity": {
+          "type": "string",
+          "enum": ["blocker", "warning", "info"]
+        },
+        "code": {
+          "type": "string",
+          "minLength": 1
+        },
+        "message": {
+          "type": "string",
+          "minLength": 1
+        },
+        "path": {
+          "type": "string"
+        }
+      }
+    },
+    "stateUpdatePayload": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["from_state", "to_state", "transition_reason"],
+      "properties": {
+        "from_state": {
+          "type": "string"
+        },
+        "to_state": {
+          "type": "string"
+        },
+        "transition_reason": {
+          "type": "string",
+          "minLength": 1
+        },
+        "evidence_count": {
+          "type": "integer",
+          "minimum": 0
+        }
+      }
+    },
+    "checklistSubmissionPayload": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "checklist_id",
+        "total_fields",
+        "completed_fields",
+        "status"
+      ],
+      "properties": {
+        "checklist_id": {
+          "type": "string",
+          "minLength": 1
+        },
+        "total_fields": {
+          "type": "integer",
+          "minimum": 1
+        },
+        "completed_fields": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "status": {
+          "type": "string",
+          "enum": ["submitted", "incomplete", "rejected"]
+        },
+        "missing_required_fields": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        }
+      }
+    },
+    "validationResultPayload": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["validator", "result", "findings"],
+      "properties": {
+        "validator": {
+          "type": "string",
+          "minLength": 1
+        },
+        "result": {
+          "type": "string",
+          "enum": ["pass", "fail"]
+        },
+        "findings": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/finding"
+          }
+        }
+      }
+    },
+    "alertPayload": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["severity", "code", "message"],
+      "properties": {
+        "severity": {
+          "type": "string",
+          "enum": ["blocker", "warning", "info"]
+        },
+        "code": {
+          "type": "string",
+          "minLength": 1
+        },
+        "message": {
+          "type": "string",
+          "minLength": 1
+        },
+        "route_targets": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        }
+      }
+    },
+    "deviceLifecyclePayload": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["device_eui", "action", "status"],
+      "properties": {
+        "device_eui": {
+          "type": "string",
+          "pattern": "^[A-Fa-f0-9]{16}$"
+        },
+        "action": {
+          "type": "string",
+          "enum": [
+            "provisioned",
+            "activated",
+            "updated",
+            "decommissioned",
+            "heartbeat"
+          ]
+        },
+        "status": {
+          "type": "string",
+          "enum": ["pending", "success", "failed"]
+        },
+        "chirpstack_tenant_id": {
+          "type": "string"
+        }
+      }
+    },
+    "gatewayLifecyclePayload": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["gateway_id", "action", "status"],
+      "properties": {
+        "gateway_id": {
+          "type": "string",
+          "minLength": 1
+        },
+        "action": {
+          "type": "string",
+          "enum": [
+            "provisioned",
+            "activated",
+            "updated",
+            "decommissioned",
+            "heartbeat"
+          ]
+        },
+        "status": {
+          "type": "string",
+          "enum": ["pending", "success", "failed"]
+        },
+        "chirpstack_gateway_id": {
+          "type": "string"
+        }
+      }
+    },
+    "chirpstackUplinkPayload": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["dev_eui", "f_cnt", "f_port", "rx_info", "received_at"],
+      "properties": {
+        "dev_eui": {
+          "type": "string",
+          "pattern": "^[A-Fa-f0-9]{16}$"
+        },
+        "f_cnt": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "f_port": {
+          "type": "integer",
+          "minimum": 1,
+          "maximum": 255
+        },
+        "rx_info": {
+          "type": "object",
+          "additionalProperties": false,
+          "required": ["gateway_id", "rssi", "snr"],
+          "properties": {
+            "gateway_id": {
+              "type": "string",
+              "minLength": 1
+            },
+            "rssi": {
+              "type": "number"
+            },
+            "snr": {
+              "type": "number"
+            }
+          }
+        },
+        "received_at": {
+          "type": "string",
+          "format": "date-time"
+        }
+      }
+    }
+  },
+  "allOf": [
+    {
+      "if": {
+        "properties": {
+          "event_type": {
+            "const": "state_update"
+          }
+        },
+        "required": ["event_type"]
+      },
+      "then": {
+        "properties": {
+          "payload": {
+            "$ref": "#/$defs/stateUpdatePayload"
+          }
+        }
+      }
+    },
+    {
+      "if": {
+        "properties": {
+          "event_type": {
+            "const": "checklist_submission"
+          }
+        },
+        "required": ["event_type"]
+      },
+      "then": {
+        "properties": {
+          "payload": {
+            "$ref": "#/$defs/checklistSubmissionPayload"
+          }
+        }
+      }
+    },
+    {
+      "if": {
+        "properties": {
+          "event_type": {
+            "const": "validation_result"
+          }
+        },
+        "required": ["event_type"]
+      },
+      "then": {
+        "properties": {
+          "payload": {
+            "$ref": "#/$defs/validationResultPayload"
+          }
+        }
+      }
+    },
+    {
+      "if": {
+        "properties": {
+          "event_type": {
+            "const": "alert"
+          }
+        },
+        "required": ["event_type"]
+      },
+      "then": {
+        "properties": {
+          "payload": {
+            "$ref": "#/$defs/alertPayload"
+          }
+        }
+      }
+    },
+    {
+      "if": {
+        "properties": {
+          "event_type": {
+            "const": "device_lifecycle"
+          }
+        },
+        "required": ["event_type"]
+      },
+      "then": {
+        "properties": {
+          "payload": {
+            "$ref": "#/$defs/deviceLifecyclePayload"
+          }
+        }
+      }
+    },
+    {
+      "if": {
+        "properties": {
+          "event_type": {
+            "const": "gateway_lifecycle"
+          }
+        },
+        "required": ["event_type"]
+      },
+      "then": {
+        "properties": {
+          "payload": {
+            "$ref": "#/$defs/gatewayLifecyclePayload"
+          }
+        }
+      }
+    },
+    {
+      "if": {
+        "properties": {
+          "event_type": {
+            "const": "chirpstack_uplink"
+          }
+        },
+        "required": ["event_type"]
+      },
+      "then": {
+        "properties": {
+          "payload": {
+            "$ref": "#/$defs/chirpstackUplinkPayload"
+          }
+        }
+      }
+    }
+  ]
 }

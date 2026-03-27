@@ -1,0 +1,85 @@
+name: Release Field Pack
+
+on:
+  push:
+    tags:
+      - "field-pack-v*"
+  workflow_dispatch:
+    inputs:
+      project_id:
+        description: "Project identifier embedded in field pack names."
+        required: true
+        default: "SOU-RELEASE"
+
+permissions:
+  contents: write
+
+jobs:
+  build-and-publish:
+    runs-on: ubuntu-24.04
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version-file: ".python-version"
+
+      - name: Build virtual environment
+        run: make venv
+
+      - name: Export field pack artifacts
+        shell: bash
+        run: |
+          set -euo pipefail
+          PROJECT_ID="${{ github.event.inputs.project_id }}"
+          if [ -z "${PROJECT_ID}" ]; then
+            PROJECT_ID="${GITHUB_REF_NAME}"
+          fi
+
+          mkdir -p out/release
+          .venv/bin/python tools/export_field_pack.py \
+            --project-id "${PROJECT_ID}" \
+            --product SOIT-SCOMM-CF-CD-RAK-7266@AS9231_BASIC_STATION_POE \
+            --product SOIT-SCOMM-CF-MD-RAK4630-RAK5802-MFM384@AS9231_RS485_9600N81 \
+            --combined \
+            --out out/release
+
+      - name: Generate checksums and release notes
+        shell: bash
+        run: |
+          set -euo pipefail
+          sha256sum out/release/*.zip > out/release/SHA256SUMS.txt
+          {
+            echo "# Field Pack Release"
+            echo
+            echo "- Commit: \`${GITHUB_SHA}\`"
+            if [[ "${GITHUB_REF_TYPE:-}" == "tag" ]]; then
+              echo "- Tag: \`${GITHUB_REF_NAME}\`"
+            fi
+            echo
+            echo "## SHA256 Checksums"
+            echo
+            echo '```text'
+            cat out/release/SHA256SUMS.txt
+            echo '```'
+          } > out/release/RELEASE_NOTES.md
+
+      - name: Upload build artifacts
+        uses: actions/upload-artifact@v4
+        with:
+          name: field-pack-release
+          path: |
+            out/release/*.zip
+            out/release/SHA256SUMS.txt
+            out/release/RELEASE_NOTES.md
+
+      - name: Publish GitHub release
+        if: startsWith(github.ref, 'refs/tags/')
+        uses: softprops/action-gh-release@v2
+        with:
+          body_path: out/release/RELEASE_NOTES.md
+          files: |
+            out/release/*.zip
+            out/release/SHA256SUMS.txt

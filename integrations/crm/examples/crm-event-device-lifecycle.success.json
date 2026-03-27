@@ -1,0 +1,21 @@
+{
+  "event_id": "evt_20260327_0003",
+  "event_type": "device_lifecycle",
+  "created_at": "2026-03-27T09:24:20Z",
+  "project_id": "P-123",
+  "workstream": "edge_node",
+  "state": "live",
+  "product_id": "SOIT-SCOMM-CF-MD-RAK4630-RAK5802-MFM384",
+  "variant": "AS9231_RS485_9600N81",
+  "trace_id": "trace_6c93e7e3_0003",
+  "source": {
+    "system": "chirpstack",
+    "version": "4.8.1"
+  },
+  "payload": {
+    "device_eui": "A1B2C3D4E5F60708",
+    "action": "activated",
+    "status": "success",
+    "chirpstack_tenant_id": "tenant-bd-01"
+  }
+}

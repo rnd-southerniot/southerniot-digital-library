@@ -1,0 +1,129 @@
+product_id: SOIT-SCOMM-CF-CD-RAK-7266
+name: CareDrive Gateway - RAK7266 Outdoor
+workstream: gateway
+defaults:
+  region: AS923-1
+  gateway_mode: basic_station
+variants:
+- AS9231_BASIC_STATION_POE
+- AS9231_BASIC_STATION_LTE
+- AS9231_UDP_PACKET_FORWARDER_POE
+- AS9231_UDP_PACKET_FORWARDER_LTE
+dependencies: []
+alerting:
+  channels:
+    crm_comments: true
+    email:
+      enabled: true
+      to_roles:
+      - CTO
+      - PROJECT_LEAD
+    mattermost:
+      enabled: true
+      channel: careflow-alerts
+  routing:
+    blocker:
+    - CTO
+    - PROJECT_LEAD
+    - SUPPORT
+    warning:
+    - PROJECT_LEAD
+    - SUPPORT
+    info:
+    - SUPPORT
+state_requirements:
+  site_survey:
+    required_docs:
+    - states/site_survey/docs/sop.md
+    - artifacts/vendor/RAK7266_vendor_pdfs.md
+    required_checklist: states/site_survey/checklist.yaml
+    required_evidence:
+      photos_min: 4
+      photos_max: 5
+      required_photo_tags:
+      - mount_location
+      - sky_view
+      - power_source
+      - internet_source
+    validations:
+    - states/site_survey/validations/validation_internet.yaml
+    - states/site_survey/validations/validation_grounding.yaml
+    outputs:
+    - site_survey_report
+  hardware_preparation:
+    required_docs:
+    - states/hardware_preparation/docs/sop.md
+    outputs:
+    - prepared_hardware_list
+  firmware_generate:
+    required_docs:
+    - states/firmware_generate/docs/sop.md
+    approvals:
+    - RND_LEAD
+    validations:
+    - states/firmware_generate/validations/validation_firmware_approval.yaml
+    outputs:
+    - firmware_bundle_ref
+  lab_test:
+    required_docs:
+    - states/lab_test/docs/sop.md
+    validations:
+    - states/lab_test/validations/validation_boot_and_services.yaml
+    outputs:
+    - lab_test_log
+  ready_for_installation:
+    required_docs:
+    - states/ready_for_installation/docs/sop.md
+    required_checklist: states/ready_for_installation/checklist.yaml
+    validations:
+    - states/ready_for_installation/validations/validation_ready_for_install.yaml
+    outputs:
+    - staged_for_installation
+  on_site_installation:
+    required_docs:
+    - states/on_site_installation/docs/sop.md
+    required_checklist: states/on_site_installation/checklist.yaml
+    required_evidence:
+      photos_min: 4
+      photos_max: 5
+      required_photo_tags:
+      - mounted_unit
+      - antenna
+      - grounding
+      - cable_entry
+    validations:
+    - states/on_site_installation/validations/validation_antenna.yaml
+    outputs:
+    - installation_report
+  testing:
+    required_docs:
+    - states/testing/docs/sop.md
+    required_checklist: states/testing/checklist.yaml
+    required_evidence:
+      photos_min: 4
+      photos_max: 5
+      required_photo_tags:
+      - gateway_leds
+      - backhaul_ok
+      - chirpstack_status
+      - rf_environment
+    validations:
+    - states/testing/validations/validation_gateway_online_MISSING.yaml
+    outputs:
+    - commissioning_report
+  live:
+    required_docs:
+    - states/live/docs/sop.md
+    required_checklist: states/live/checklist.yaml
+    validations:
+    - states/live/validations/validation_alerting.yaml
+    outputs:
+    - go_live_record
+  maintenance:
+    required_docs:
+    - states/maintenance/docs/sop.md
+    required_checklist: states/maintenance/checklist.yaml
+    validations:
+    - states/maintenance/validations/validation_maintenance.yaml
+    outputs:
+    - maintenance_log

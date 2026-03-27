@@ -81,6 +81,7 @@ Deliver a phase-1 backend that proves the updated DPL architecture end to end wi
 
 ### Phase 5: Pilot and Hardening
 - Run one gateway and one edge-node pilot flow across the full state path needed for field deployment readiness.
+- Use `docs/backend-thin-slice-pilot-plan.md` as the dated execution plan for milestone owners, dependency graph, and cutover/rollback controls.
 - Add smoke tests for:
   - event ingestion
   - index build plus search query
